@@ -16,13 +16,6 @@ pipeline{
             }
         }
 
-        // build project
-        stage('build'){
-          steps{
-            sh "./gradlew build"
-          }
-        }
-
         // static code analysis using SonarQube
         stage('SonarQube analysis') {
            steps{
@@ -37,6 +30,29 @@ pipeline{
            steps {
               timeout(time: 10, unit: 'MINUTES') {
                  waitForQualityGate abortPipeline: true
+              }
+           }
+        }
+
+        // build project
+        stage('build'){
+          steps{
+             sh "./gradlew build -x test"
+          }
+        }
+
+        // run unit tests
+        stage('run unit tests'){
+          steps{
+            sh "./gradlew test"
+          }
+        }
+
+        // code coverage analysis using SonarQube
+        stage('code coverage analysis') {
+           steps{
+              withSonarQubeEnv('SonarQube') {
+                 sh './gradlew sonarqube -x test'
               }
            }
         }

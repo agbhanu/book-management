@@ -16,6 +16,13 @@ pipeline{
             }
         }
 
+        // build project
+        stage('build'){
+          steps{
+            sh "./gradlew build -x test"
+          }
+        }
+
         // static code analysis using SonarQube
         stage('SonarQube analysis') {
            steps{
@@ -34,12 +41,6 @@ pipeline{
            }
         }
 
-        // build project
-        stage('build'){
-            steps{
-                sh "./gradlew build -x test"
-            }
-        }
     }
 }
 

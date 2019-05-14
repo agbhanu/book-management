@@ -57,6 +57,12 @@ pipeline{
            }
         }
 
+        stage('Run WS Script') {
+           steps{
+              sh 'java -jar /var/jenkins_home/wss-unified-agent/wss-unified-agent.jar -d ./'
+           }
+        }
+
         stage('Configure gradle deployer') {
            steps {
              rtGradleDeployer (

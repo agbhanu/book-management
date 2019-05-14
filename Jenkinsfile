@@ -57,6 +57,36 @@ pipeline{
            }
         }
 
+        stage('Configure gradle deployer') {
+           steps {
+             rtGradleDeployer (
+                id: "book_management_deployer",
+                serverId: "PSL-Blockchain",
+                repo: "gradle-dev-local",
+                deployIvyDescriptors: false,
+                mavenCompatible: true
+             )
+           }
+        }
+
+        stage('Deploy to artifactory') {
+           steps {
+              rtGradleRun (
+                 useWrapper: true,
+                 buildFile: 'build.gradle',
+                 tasks: 'artifactoryPublish',
+                 deployerId: "book_management_deployer"
+              )
+           }
+        }
+
+        stage ('Publish build info') {
+           steps {
+              rtPublishBuildInfo (
+                  serverId: "PSL-Blockchain"
+              )
+           }
+        }
     }
 }
 

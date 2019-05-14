@@ -90,12 +90,29 @@ pipeline{
     }
 
     post{
+
       always{
         emailext(
            subject: "Jenkins Build ${currentBuild.currentResult}: Job ${env.JOB_NAME}",
            body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}",
            recipientProviders: [[$class: 'DevelopersRecipientProvider']],
            attachLog: true
+        )
+      }
+
+      success{
+         office365ConnectorSend (
+            color: '#006400',
+            status: '*${currentBuild.currentResult}:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}',
+            webhookUrl: 'https://outlook.office.com/webhook/7c62aabd-b54b-4a02-90b8-1aa1eff78fdf@1f4beacd-b7aa-49b2-aaa1-b8525cb257e0/JenkinsCI/e0544b4c39d64e6297d7b2d1b9f13012/01e376f0-c6a6-4b13-aa1e-484be8466bad'
+         )
+      }
+
+      failure{
+        office365ConnectorSend (
+           color: '#8B0000',
+           status: '*${currentBuild.currentResult}:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}',
+           webhookUrl: 'https://outlook.office.com/webhook/7c62aabd-b54b-4a02-90b8-1aa1eff78fdf@1f4beacd-b7aa-49b2-aaa1-b8525cb257e0/JenkinsCI/e0544b4c39d64e6297d7b2d1b9f13012/01e376f0-c6a6-4b13-aa1e-484be8466bad'
         )
       }
     }

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.psl.BookManagerTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2019-05-14T05:47:55" hostname="HJD024632" time="0.017">
+  <properties/>
+  <testcase name="testAddBook_NotUniqueIsbn" classname="com.psl.BookManagerTest" time="0.011"/>
+  <testcase name="getBackBook_RemovedFromFriendBookList" classname="com.psl.BookManagerTest" time="0.001"/>
+  <testcase name="testLendedBook_addedInFriendList" classname="com.psl.BookManagerTest" time="0.0"/>
+  <testcase name="getBackBook_NotPresentInFriendBookList" classname="com.psl.BookManagerTest" time="0.0"/>
+  <testcase name="testLendedBook_MarkedAsAssigned" classname="com.psl.BookManagerTest" time="0.0"/>
+  <testcase name="testAddBook_isbnOrTitleIsNull" classname="com.psl.BookManagerTest" time="0.002"/>
+  <testcase name="testLendedBook_NotPresentInBookList" classname="com.psl.BookManagerTest" time="0.001"/>
+  <testcase name="testAddBook_MaxLimit" classname="com.psl.BookManagerTest" time="0.0"/>
+  <testcase name="testLendedBook_AlreadyAssignedToSomeone" classname="com.psl.BookManagerTest" time="0.0"/>
+  <testcase name="getBackBook_MarkedAsNotAssigned" classname="com.psl.BookManagerTest" time="0.001"/>
+  <system-out><![CDATA[Book is already added in book list
+Book with isbn title1 is not present
+Isbn or Title can not be null
+Book is not present in list
+Can not added more books
+Book is already assigned to someone else
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
